@@ -1,0 +1,10 @@
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <color name="bg_main">#FAF0E6</color>       <color name="bg_gradient_start">#F5DEB3</color> <color name="bg_gradient_end">#E0B590</color>
+    <color name="text_dark">#4A2C2A</color>     <color name="text_secondary">#6B4A3D</color>
+    <color name="input_bg">#FFF9ED</color>
+    <color name="input_border">#E0C9A6</color>
+    <color name="error_red">#B22222</color>
+</resources>
