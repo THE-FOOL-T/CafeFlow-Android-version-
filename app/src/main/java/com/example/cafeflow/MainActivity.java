@@ -9,13 +9,17 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class MainActivity extends AppCompatActivity {
 
     private EditText usernameField, passwordField;
     private TextView roleTitleLabel;
     private LinearLayout registerLayout;
-    private boolean isCustomer = true;
+    private FirebaseAuth mAuth;
+    private FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
         passwordField = findViewById(R.id.passwordField);
         roleTitleLabel = findViewById(R.id.roleTitleLabel);
         registerLayout = findViewById(R.id.registerLayout);
+        mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
 
         Button btnCustomer = findViewById(R.id.btnCustomer);
         Button btnAdmin = findViewById(R.id.btnAdmin);
@@ -34,21 +40,15 @@ public class MainActivity extends AppCompatActivity {
 
         //customer clck
         btnCustomer.setOnClickListener(v -> {
-            isCustomer = true;
-            roleTitleLabel.setText("Customer Login");
-
-            // highlight btn
+            roleTitleLabel.setText(getString(R.string.customer_login));
             btnCustomer.setAlpha(1.0f);
             btnAdmin.setAlpha(0.5f);
-
-            // visible register
             registerLayout.setVisibility(View.VISIBLE);
         });
 
         // admin clck
         btnAdmin.setOnClickListener(v -> {
-            isCustomer = false;
-            roleTitleLabel.setText("Admin Login");
+            roleTitleLabel.setText(getString(R.string.admin_login));
             btnAdmin.setAlpha(1.0f);
             btnCustomer.setAlpha(0.5f);
             registerLayout.setVisibility(View.GONE);
@@ -59,11 +59,39 @@ public class MainActivity extends AppCompatActivity {
             String user = usernameField.getText().toString();
             String pass = passwordField.getText().toString();
             if(user.isEmpty() || pass.isEmpty()){
-                Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.fields_cannot_be_empty), Toast.LENGTH_SHORT).show();
             } else {
-                //will add datbase later
-                String role = isCustomer ? "Customer" : "Admin";
-                Toast.makeText(this, "Logging in as " + role, Toast.LENGTH_SHORT).show();
+                mAuth.signInWithEmailAndPassword(user, pass)
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            FirebaseUser firebaseUser = mAuth.getCurrentUser();
+                            if (firebaseUser != null) {
+                                String uid = firebaseUser.getUid();
+                                db.collection("users").document(uid).get()
+                                    .addOnSuccessListener(documentSnapshot -> {
+                                        if (documentSnapshot.exists()) {
+                                            User currentUser = documentSnapshot.toObject(User.class);
+                                            
+                                            Class<?> targetActivity;
+                                            if (currentUser != null && currentUser.getRole() == Role.ADMIN) {
+                                                targetActivity = AdminActivity.class;
+                                            } else {
+                                                targetActivity = CustomerActivity.class;
+                                            }
+                                            Intent intent = new Intent(MainActivity.this, targetActivity);
+                                            startActivity(intent);
+
+                                        } else {
+                                            Toast.makeText(MainActivity.this, getString(R.string.user_data_not_found), Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+                            }
+                        } else {
+                            if (task.getException() != null) {
+                                Toast.makeText(MainActivity.this, getString(R.string.login_failed, task.getException().getMessage()), Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
             }
         });
 
