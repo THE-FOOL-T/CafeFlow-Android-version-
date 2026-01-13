@@ -1,3 +1,24 @@
 <resources>
     <string name="app_name">CafeFlow</string>
+    <string name="total_price">Total: $%1$.2f</string>
+    <string name="added_to_cart">Added: %1$s</string>
+    <string name="cart_is_empty">Your cart is empty!</string>
+    <string name="order_sent_to_kitchen">Order Sent to Kitchen!</string>
+    <string name="total_default">Total: $0.00</string>
+    <string name="fields_cannot_be_empty">Fields cannot be empty</string>
+    <string name="passwords_do_not_match">Passwords do not match</string>
+    <string name="registration_successful">Registration Successful!</string>
+    <string name="failed_to_save_user_data">Failed to save user data</string>
+    <string name="registration_failed">Registration Failed: %1$s</string>
+    <string name="login_failed">Login Failed: %1$s</string>
+    <string name="logging_in_as_admin">Logging in as Admin</string>
+    <string name="please_fill_all_fields">Please fill all fields</string>
+    <string name="item_added">Item Added!</string>
+    <string name="sales_format">$%.2f</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="user_data_not_found">User data not found</string>
+    <string name="profile_updated">Profile Updated</string>
+    <string name="customer_login">Customer Login</string>
+    <string name="admin_login">Admin Login</string>
 </resources>

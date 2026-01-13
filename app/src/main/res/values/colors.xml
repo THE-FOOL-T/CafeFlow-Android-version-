@@ -1,10 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <!-- New Design System Colors -->
+    <color name="colorPrimary">#4E342E</color>
+    <color name="text_dark">#3E2723</color>
+    <color name="text_secondary">#5D4037</color>
+    <color name="price_text">#000000</color>
 
-    <color name="bg_main">#FAF0E6</color>       <color name="bg_gradient_start">#F5DEB3</color> <color name="bg_gradient_end">#E0B590</color>
-    <color name="text_dark">#4A2C2A</color>     <color name="text_secondary">#6B4A3D</color>
-    <color name="input_bg">#FFF9ED</color>
-    <color name="input_border">#E0C9A6</color>
-    <color name="error_red">#B22222</color>
+    <color name="main_bg">#FAF3EB</color>
+    <color name="sidebar_bg">#EBCBB0</color>
+    <color name="card_bg">#FFFFFF</color>
+
+    <color name="primary_button">#4E342E</color>
+    <color name="secondary_button">#A15D45</color>
+    <color name="destructive_button_border">#B71C1C</color>
+    <color name="destructive_button_text">#B71C1C</color>
+
+    <color name="input_field_bg">#FFF8E1</color>
+    <color name="input_field_border">#E0E0E0</color>
+
+    <color name="status_confirmed">#2E7D32</color>
+    <color name="status_pending">#F57F17</color>
+
+    <color name="white">#FFFFFF</color>
+
+    <!-- Legacy Colors for Old Layouts (Using New Palette) -->
+    <color name="bg_main">#FAF3EB</color>
+    <color name="input_bg">#FFF8E1</color>
+    <color name="input_border">#E0E0E0</color>
 </resources>
